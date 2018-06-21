@@ -1,20 +1,30 @@
 <template>
 
   <div style ="background-color: #3b8070;">
-    <global-head></global-head>
-    <nuxt/>
+    <cmd-head></cmd-head>
+    <div id = "des" style ="background-color: #3b8070;">
+
+    </div>
+    <el-row>
+      <el-col :md="18" :sm="24"> <nuxt/></el-col>
+      <el-col :span="6" class = "hidden-sm-and-down">
+        <cmd-right></cmd-right>
+      </el-col>  
+    </el-row>
     <globar-bottom></globar-bottom>
   </div>
 </template>
 
 
 <script>
-import GlobalHead from '~/components/GlobalHead.vue'
+import CmdHead from '~/components/command/CmdHead.vue'
+import CmdRight from '~/components/command/CmdRight.vue'
 import GlobarBottom from '~/components/GlobarBottom.vue'
 import 'element-ui/lib/theme-chalk/display.css'
 export default {
   components: {
-    GlobalHead,
+    CmdHead,
+    CmdRight,
     GlobarBottom,
   },
 }

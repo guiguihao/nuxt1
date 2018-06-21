@@ -4,7 +4,6 @@
       <app-button-a  icon = 'icon-zhinengsuo' name = 'my device'></app-button-a>
       <app-button-b  icon = 'icon-kongtiao1' name = '空调'></app-button-b>
     </div> -->
-    <canvas-test name = "ddfsdfsfsgs"></canvas-test>
     <nuxt-link :to="'/test2'">0222</nuxt-link>
   </section>
 </template>
@@ -13,13 +12,11 @@
 import AppLogo from '~/components/AppLogo.vue'
 import AppButtonA from '~/components/AppButtonA.vue'
 import AppButtonB from '~/components/AppButtonB.vue'
-import CanvasTest from '~/components/CanvasTest'
 export default {
   components: {
     AppLogo,
     AppButtonA,
     AppButtonB,
-    CanvasTest
   },
   data:()=>{
     return {
