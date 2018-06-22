@@ -61,7 +61,7 @@ module.exports = {
     proxy: true // Can be also an object with default options 
   }, 
   proxy: { 
-    '/api/': { target: 'https://www.kuaidi100.com', pathRewrite: {'^/api/': ''} } }
+    '/api/': { target: 'http://api.weiyunbuy.com', pathRewrite: {'^/api/': ''} } }
 
 
 }

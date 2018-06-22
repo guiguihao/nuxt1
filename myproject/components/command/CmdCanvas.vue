@@ -23,9 +23,9 @@
     },
  
   	mounted(){
-      console.log(this.canvasId )
+      // console.log(this.canvasId )
       var divW=document.getElementById("box-card").offsetWidth;
-      console.log(divW )
+      // console.log(divW )
   		var c=document.getElementById(this.canvasId);
 		  var ctx=c.getContext("2d");
       ctx.canvas.width  = divW-40;  

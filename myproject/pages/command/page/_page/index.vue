@@ -2,18 +2,18 @@
  <div>
    <el-card class="box-card" id = "box-card">
      <div slot="header" class="clearfix">
-       <span>卡片名称</span>
+       <span>所有命令 ({{allcount}})</span>
      </div>
-     <div v-for="o in 4" :key="o" class="text item">
+     <div v-for="o in articles" :key="o._id" class="text item">
       <el-row>
-        <el-col :span="22" ><h3>zgrep with colour into less</h3></el-col>
+        <el-col :span="22" ><nuxt-link :to="'/command/view/' + o"><h3>{{o.title}}</h3></nuxt-link></el-col>
         <el-col :span="2" style ="text-align: right;"><h2 style="float:right; margin-left:2px">52</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
       </el-row>
-       <p>{{o}}</p>
-       <canvas-code name ="012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" :canvasId = o></canvas-code>
+       <p style ="margin:10px 0 10px 0">{{o.overview}}</p>
+       <canvas-code :name = o.content :canvasId = o._id></canvas-code>
        <el-row style="margin-top:10px">
-        <el-col :span="20" >jss 2018-5-56</el-col>
-        <el-col :span="4"><el-button size="mini" style="float:right" @click="cpcmd">复制命令</el-button></el-col>  
+        <el-col :span="20" >{{o.author.name}} {{o.date}}</el-col>
+        <el-col :span="4"><el-button size="mini" style="float:right" @click="cpcmd(o.content)">复制命令</el-button></el-col>  
       </el-row>
      </div>
    </el-card>
@@ -37,7 +37,14 @@ export default {
   components: {
     CanvasCode
   },
-  
+  computed:{
+    articles(){
+      return this.$store.state.article.list
+    },
+    allcount(){
+      return this.$store.state.article.allCount
+    }
+  },
   data:()=>{
     return {
       postFontSize:10,
@@ -47,7 +54,7 @@ export default {
   async asyncData({ params }) {
     // We can use async/await ES6 feature
     let currentPage2 = await params.page;
-    return {currentPage2:currentPage2}
+    return {currentPage2:parseInt(currentPage2)}
   },
   methods:{
       //分页跳转
@@ -71,6 +78,23 @@ export default {
         });
 
       },
+
+      //获取数据
+      async getArticles(page) {
+        try {
+          await this.$store.dispatch('article/getArticleList', {
+            page:page,
+            size:20,
+            filter:{}
+          })
+
+        } catch (e) {
+        }
+      },
+  },
+
+  created: function () {
+    this.getArticles(this.currentPage2) 
   },
  
 }
@@ -99,5 +123,10 @@ export default {
   .box-card {
     margin: 10px;
     
+  }
+
+  .box-card a{
+    color: #303133;
+    text-decoration: none;
   }
 </style>
