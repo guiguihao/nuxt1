@@ -23,8 +23,13 @@ export const actions = {
     // }
     try {
       const { data } = await Request.user.userLogin({name:username,password:password})
-      console.log(data); 
-      commit('SET_USER', data)
+      if (data.code === 1) {
+        commit('SET_USER', data.data)
+      }else{
+        commit('SET_USER', null)
+        throw new Error(data.msg)
+      };
+      
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Bad credentials')
@@ -35,8 +40,20 @@ export const actions = {
   },
 
   async logout({ commit }) {
-    await axios.post('/api/logout')
-    commit('SET_USER', null)
+    try {
+      const { data } = await Request.user.userLogOut()
+      if (data.code === 1) {
+        commit('SET_USER', null)
+      }else{
+         throw new Error(data.msg)
+      }
+    }catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Bad credentials')
+      }
+      throw error
+    }
+    
   }
 
 }

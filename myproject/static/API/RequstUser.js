@@ -98,10 +98,30 @@ var RequestUser = {
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/user/login';
           } else {
-            url = '/app/user/update';
+            url = '/app/user/logout';
           }
           let p = new Promise(function(resolve, reject){        //做一些异步操作
             axios.post(url, params).then((res) => {
+             // console.log(JSON.stringify(res.data)); 
+              resolve(res);
+              }).catch(function(error) {
+
+                reject(error)
+              });
+          });
+          return p;
+   },
+
+   //登出
+   userLogOut: function(dic){
+          let url = '';
+          if(process.env.NODE_ENV === 'development') { //TEST
+            url = '/api/app/user/logout';
+          } else {
+            url = '/app/user/logout';
+          }
+          let p = new Promise(function(resolve, reject){        //做一些异步操作
+            axios.post(url, {}).then((res) => {
              // console.log(JSON.stringify(res.data)); 
               resolve(res);
               }).catch(function(error) {

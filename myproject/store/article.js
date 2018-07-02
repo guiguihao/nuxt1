@@ -17,15 +17,6 @@ export const mutations = {
 
 export const actions = {
   async getArticleList({ commit }, { page, size, filter}) {
-    // try {
-    //   const { data } = await axios.post('/api/login', { username, password })
-    //   commit('SET_USER', data)
-    // } catch (error) {
-    //   if (error.response && error.response.status === 401) {
-    //     throw new Error('Bad credentials')
-    //   }
-    //   throw error
-    // }
     try {
       const { data } = await Request.article.getArticleList(page,size,filter)
       console.log(data); 
@@ -40,9 +31,25 @@ export const actions = {
       }
       throw error
     }
-
   },
 
+  async addArticle({ commit }, {params }) {
+    try {
+      const { data } = await Request.article.addArticle(params)
+      console.log(data); 
+      if (data.code === 1) {
+        
+      }else{
+         throw new Error(data.msg)
+      };
+      
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Bad credentials')
+      }
+      throw error
+    }
+  },
   
 
 }

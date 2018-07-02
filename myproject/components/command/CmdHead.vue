@@ -9,11 +9,13 @@
   	     </el-input>
   	  </el-col>  
       <el-col :span="8" class="hidden-sm-and-down">
-        <el-button type="text" class = "head_hy">欢迎:admin  <span style="margin-left:10px">会员中心</span></el-button>
-        <el-button type="text" class = "head_hy" @click="loginClick">登录</el-button>
+        <el-button type="text" class = "head_hy" @click="logOutClick" v-if = "username">退出</el-button>
+        <el-button type="text" class = "head_hy" v-if = "username">欢迎:{{username}}  <span style="margin-left:10px">会员中心</span></el-button>
+        <el-button type="text" class = "head_hy" @click="loginClick" v-if = "!username">登录</el-button>
+        
       </el-col>
   	</el-row>
-  <login-dig :loginVisible = 'loginVisible' v-on:close = "closed" v-on:sure = "sure('cmd')"></login-dig>
+  <login-dig :loginVisible = 'loginVisible' v-on:close = "closed" v-on:sure = "sure()"></login-dig>
   </div>
 </template>
 
@@ -32,6 +34,14 @@
 
       }
     },
+    computed:{
+        username(){
+          if(this.$store.state.authUser){
+            return this.$store.state.authUser.name;
+          }
+          return ''
+        },
+   },
     methods:{
        //登陆
        loginClick(){
@@ -45,7 +55,31 @@
       sure(){
         this.loginVisible = false;
       },
+      //调用登陆接口
+      async login(){
+        try{
+           await this.$store.dispatch('login', {
+              username: '',
+              password: ''
+           })
+        }catch (e) {
+           // this.$message.error(e.message);
+        }
+      },
+      //调用登出接口
+      async logOutClick(){
+        try{
+           await this.$store.dispatch('logout')
+        }catch (e) {
+           this.$message.error(e.message);
+        }
+      },
     },
+
+    created: function () {
+     
+       this.login();
+    }
   }
 </script>
 

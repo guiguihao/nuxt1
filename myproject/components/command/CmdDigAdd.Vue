@@ -3,22 +3,22 @@
   	 <el-dialog title="提交命令" :visible="cmdDialogFormVisible" @close = "$emit('close')">
        <el-form  >
          <el-form-item label="title" :label-width="formLabelWidth"  >
-           <el-input v-model="title" auto-complete="off"></el-input>
+           <el-input v-model="cmd.title" auto-complete="off"></el-input>
          </el-form-item>
          <el-form-item label="描述" :label-width="formLabelWidth"  >
-           <el-input v-model="des" auto-complete="off" type="textarea" :rows="2"></el-input>
+           <el-input v-model="cmd.des" auto-complete="off" type="textarea" :rows="2"></el-input>
          </el-form-item>
          <el-form-item label="命令" :label-width="formLabelWidth"  >
-           <el-input v-model="cmd" auto-complete="off" type="textarea" :rows="3"></el-input>
+           <el-input v-model="cmd.cmd" auto-complete="off" type="textarea" :rows="3"></el-input>
          </el-form-item>
          <el-form-item label="输出" :label-width="formLabelWidth"  >
-           <el-input v-model="out" auto-complete="off" type="textarea" :rows="6"></el-input>
+           <el-input v-model="cmd.out" auto-complete="off" type="textarea" :rows="6"></el-input>
          </el-form-item>
 
          
        </el-form>
        <div slot="footer" class="dialog-footer">
-         <el-button type="primary" @click="$emit('sure')">确 定</el-button>
+         <el-button type="primary" @click="$emit('sure',cmd)">确 定</el-button>
        </div>
      </el-dialog>
   </div>
@@ -34,17 +34,8 @@
         }
     },
     props:{
-      des:{
-        default: ''
-      },
       cmd:{
-        default: ''
-      },
-      out:{
-        default: ''
-      },
-      title:{
-        default: ''
+        default: {'title':'','des':'','cmd':'','out':''}
       },
       cmdDialogFormVisible:{
         default: false
@@ -54,10 +45,7 @@
         
     },
     methods:{
-      closed(){
-        console.log("===========");
-        this.pldialogFormVisible = false;
-      }
+
     }
   }
 </script>

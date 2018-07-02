@@ -6,8 +6,8 @@
      </div>
      <div v-for="o in articles" :key="o._id" class="text item">
      	<el-row>
-     	  <el-col :span="22" ><nuxt-link :to="'/command/view/' + o"><h3>{{o.title}}</h3></nuxt-link></el-col>
-     	  <el-col :span="2" style ="text-align: right;"><h2 style="float:right; margin-left:2px">52</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
+     	  <el-col :span="22" ><nuxt-link :to="'/command/view/' + o._id"><h3>{{o.title}}</h3></nuxt-link></el-col>
+     	  <el-col :span="2" style ="text-align: right;"><h2 style="float:right; margin-left:2px">{{o.reserved_3}}</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
      	</el-row>
        <p style ="margin:10px 0 10px 0">{{o.overview}}</p>
        <canvas-code :name = o.content :canvasId = o._id></canvas-code>
