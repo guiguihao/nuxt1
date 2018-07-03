@@ -35,6 +35,8 @@ export const actions = {
 
   async addArticle({ commit }, {params }) {
     try {
+        console.log('=====================');
+        console.log(params); 
       const { data } = await Request.article.addArticle(params)
       console.log(data); 
       if (data.code === 1) {

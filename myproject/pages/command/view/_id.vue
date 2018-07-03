@@ -155,15 +155,26 @@ export default {
         console.log('=====');
         
       },
-     cmdAdd: function (data) {
-        console.log(data);
-        this.addArticle(data);
+     cmdAdd: function () {
+        
+        let params = {
+          title:this.cmd.title,
+          content:this.cmd.cmd,
+          overview:this.cmd.des,
+          reserved_2:this.cmd.out,
+          source:0,
+          status:3,
+          type:'"5b28575e64fec03d299a3ea1"'
+        }
+        this.addArticle(params);
        },
 
       //添加替代方案
       async addArticle(data) {
          try {
-             await this.$store.dispatch('article/addArticle', {data})
+             data.author = this.$store.state.authUser._id
+             console.log(data);
+             await this.$store.dispatch('article/addArticle', {params:data})
             
           } catch (e) {
              this.$message.error(e.message);
