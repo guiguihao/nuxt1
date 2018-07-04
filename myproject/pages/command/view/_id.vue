@@ -162,9 +162,11 @@ export default {
           content:this.cmd.cmd,
           overview:this.cmd.des,
           reserved_2:this.cmd.out,
+          reserved_4:this.$router.currentRoute.params.id,
           source:0,
           status:3,
-          type:'"5b28575e64fec03d299a3ea1"'
+          type:'"5b28575e64fec03d299a3ea1"',
+          author:this.$store.state.authUser._id
         }
         this.addArticle(params);
        },
@@ -172,10 +174,12 @@ export default {
       //添加替代方案
       async addArticle(data) {
          try {
-             data.author = this.$store.state.authUser._id
              console.log(data);
-             await this.$store.dispatch('article/addArticle', {params:data})
-            
+             let result = await this.$store.dispatch('article/addArticle', {params:data})
+             console.log(result)
+             if (result === 1) {
+               this.cmdDialogFormVisible = false;
+             }
           } catch (e) {
              this.$message.error(e.message);
           }
@@ -188,6 +192,48 @@ export default {
               page:1,
               size:1,
               filter:{_id:this.$router.currentRoute.params.id}
+            })
+            
+          } catch (e) {
+          }
+      },
+
+      //获取替代数据
+      async getReArticleList() {
+         console.log(this.$router.currentRoute.params.id)
+          try {
+            await this.$store.dispatch('article/getReArticleList', {
+              page:1,
+              size:1,
+              filter:{reserved_4:this.$router.currentRoute.params.id}
+            })
+            
+          } catch (e) {
+          }
+      },
+
+      //添加评论
+      async addComment(data) {
+         try {
+             console.log(data);
+             let result = await this.$store.dispatch('comment/addComment', {params:data})
+             console.log(result)
+             if (result === 1) {
+               this.cmdDialogFormVisible = false;
+             }
+          } catch (e) {
+             this.$message.error(e.message);
+          }
+      },
+
+       //获取评论数据
+      async getCommentList() {
+         console.log(this.$router.currentRoute.params.id)
+          try {
+            await this.$store.dispatch('article/getCommentList', {
+              page:1,
+              size:1,
+              filter:{reserved_4:this.$router.currentRoute.params.id}
             })
             
           } catch (e) {

@@ -6,10 +6,10 @@
            <el-input v-model="cmd.title" auto-complete="off"></el-input>
          </el-form-item>
          <el-form-item label="描述" :label-width="formLabelWidth"  >
-           <el-input v-model="cmd.des" auto-complete="off" type="textarea" :rows="2"></el-input>
+           <el-input v-model="cmd.overview" auto-complete="off" type="textarea" :rows="2"></el-input>
          </el-form-item>
          <el-form-item label="命令" :label-width="formLabelWidth"  >
-           <el-input v-model="cmd.cmd" auto-complete="off" type="textarea" :rows="3"></el-input>
+           <el-input v-model="cmd.content" auto-complete="off" type="textarea" :rows="3"></el-input>
          </el-form-item>
          <el-form-item label="输出" :label-width="formLabelWidth"  >
            <el-input v-model="cmd.out" auto-complete="off" type="textarea" :rows="6"></el-input>
@@ -35,7 +35,7 @@
     },
     props:{
       cmd:{
-        default: {'title':'','des':'','cmd':'','out':''}
+        default: {'title':'','overview':'','content':'','out':''}
       },
       cmdDialogFormVisible:{
         default: false
