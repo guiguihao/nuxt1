@@ -3,12 +3,12 @@
   	 <el-dialog title="评论" :visible="pldialogFormVisible" @close = "$emit('close')">
        <el-form  >
          <el-form-item label="内容" :label-width="formLabelWidth"  >
-           <el-input v-model="content" auto-complete="off" type="textarea" :rows="6"></el-input>
+           <el-input v-model="content.content" auto-complete="off" type="textarea" :rows="6"></el-input>
          </el-form-item>
          
        </el-form>
        <div slot="footer" class="dialog-footer">
-         <el-button type="primary" @click="$emit('sure')">确 定</el-button>
+         <el-button type="primary" @click="$emit('sure',content)">确 定</el-button>
        </div>
      </el-dialog>
   </div>
@@ -25,7 +25,7 @@
     },
     props:{
       content:{
-        default: ''
+        default: {content:''}
       },
       pldialogFormVisible:{
         default: false

@@ -5,7 +5,7 @@ var RequestArticle = {
    getArticleList: function(currentPage,pagesize,filter){
           let url = '';
           if(process.env.NODE_ENV === 'development') { //TEST
-            url = '/api/app/article/list';
+            url = '/app/article/list';
           } else {
             url = '/app/article/list';
           }

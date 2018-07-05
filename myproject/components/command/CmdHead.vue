@@ -27,6 +27,14 @@
     components: {
       LoginDig,
     },
+    head () {
+      return {
+        meta: [
+
+          { hid: 'description', name: 'description', content: 'rootopen.com linux命令大全' }
+        ]
+      }
+    },
     data:()=>{
       return{
         input5:'',

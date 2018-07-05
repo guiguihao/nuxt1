@@ -15,13 +15,13 @@
 	 	    <span>热门命令</span>
 	 	  </div>
 	 	  <ul class = "rmml">
-	         <li v-for = "(o,index) in rmcmds" :key="o">
+	         <li v-for = "(o,index) in rmcmds" :key="o._id">
 	         	<span v-if="index == 0" style ="color: #F56C6C; font-size: 20px;font-style:italic">0{{index+1}}.</span>
 	         	<span v-if="index == 1" style ="color: #E6A23C; font-size: 20px;font-style:italic">0{{index+1}}.</span>
 	         	<span v-if="index == 2" style ="color: #67C23A; font-size: 20px;font-style:italic">0{{index+1}}.</span>
 	         	<span v-if="index > 2 && index <9"  style ="color: #909399; font-size: 20px;font-style:italic">0{{index+1}}.</span>
 	         	<span v-if="index >=9"  style ="color: #909399; font-size: 20px;font-style:italic">{{index+1}}.</span>
-	         	<nuxt-link :to="'/test2'">{{o}}</nuxt-link>
+	         	<nuxt-link :to="'/command/view/' + o._id">{{o.title}}</nuxt-link>
 	         </li>
 	 	  </ul>
 	 	  
@@ -32,18 +32,17 @@
 <script>
   export default{
   	name:'CmdRight',
-  	data(){
+  	data:()=>{
        return{
          cycmds:['dd','ff','xx','pp','dd','ff','xx','pp','dd','ff','xx','pp','dd','ff','xx','pp',],
          typeColors:['','success','info','warning','danger'],
-         rmcmds:['dd','ff','xx','pp','dd','ff','xx','pp','dd','ff','xx','pp','dd','ff','xx','pp',],
        }
   	},
   	computed:{
-       // cycmdtypy:function (){
-       //   var index = Math.floor((Math.random()*this.typeColors.length)); 
-       // 	 return index
-       // }
+       //cmd数据
+       rmcmds(){
+         return this.$store.state.article.hostList
+       },
   	},
   }
 </script>

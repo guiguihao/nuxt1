@@ -7,7 +7,7 @@
      <div v-for="o in articles" :key="o._id" class="text item">
      	<el-row>
      	  <el-col :span="22" ><nuxt-link :to="'/command/view/' + o._id"><h3>{{o.title}}</h3></nuxt-link></el-col>
-     	  <el-col :span="2" style ="text-align: right;"><h2 style="float:right; margin-left:2px">{{o.reserved_3}}</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
+     	  <el-col :span="2" style ="text-align: right;"><h2 v-if = "o.reserved_3" style="float:right; margin-left:2px">{{o.reserved_3}}</h2><h2 v-else style="float:right; margin-left:2px">0</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
      	</el-row>
        <p style ="margin:10px 0 10px 0">{{o.overview}}</p>
        <canvas-code :name = o.content :canvasId = o._id></canvas-code>
@@ -44,11 +44,25 @@ export default {
 
     }
   },
+  async asyncData({ store,params }) {
+      await store.dispatch('article/getArticleList', {
+              page:1,
+              size:20,
+              filter:{}
+            });
+      await store.dispatch('article/getHotArticleList', {
+              page:1,
+              size:10,
+              filter:{recommend:'5b3dd6ff64fec052c8b60521'}
+            });
+
+  },
 
   computed:{
     articles(){
       return this.$store.state.article.list
     },
+    //总数据数量
     allcount(){
       return this.$store.state.article.allCount
     }
@@ -78,24 +92,12 @@ export default {
         });
 
       },
-      
-      //获取数据
-      async getArticles() {
-      try {
-        await this.$store.dispatch('article/getArticleList', {
-          page:1,
-          size:20,
-          filter:{}
-        })
-        
-      } catch (e) {
-      }
-    },
+     
   },
 
   created: function () {
     
-    this.getArticles();
+   
   }
  
 }

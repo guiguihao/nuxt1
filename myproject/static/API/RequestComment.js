@@ -5,7 +5,7 @@ var RequestComment = {
    getCommenttList: function(currentPage,pagesize,filter){
           let url = '';
           if(process.env.NODE_ENV === 'development') { //TEST
-            url = '/api/app/comment/list';
+            url = '/app/comment/list';
           } else {
             url = '/app/comment/list';
           }

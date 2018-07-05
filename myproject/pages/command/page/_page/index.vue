@@ -41,6 +41,7 @@ export default {
     articles(){
       return this.$store.state.article.list
     },
+    //总数据数量
     allcount(){
       return this.$store.state.article.allCount
     }
