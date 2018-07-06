@@ -16,12 +16,13 @@ axios.interceptors.request.use(
     config => {
         let mtoken = token.getToken();
            if(mtoken){
-            console.log(config.url); 
+            
             //alert(localStorage.getItem('token'));
               config.headers.Authorization = mtoken;
            }
         
            if (config.url.indexOf('/api')>-1) {
+            console.log(config.url); 
              config.baseURL = ''
            }else{
              config.baseURL = 'http://api.weiyunbuy.com'

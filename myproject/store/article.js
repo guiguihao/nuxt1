@@ -3,6 +3,7 @@ import Request from '~/static/api/Requst.js'
 export const state = () => ({
   list: [],
   reList:[],
+  moHuList:[],
   hostList:[],
   allCount:0,
   currentArticle:''
@@ -11,6 +12,9 @@ export const state = () => ({
 export const mutations = {
     SET_ARTICLE_LIST: function (state, data) {
        state.list = data
+    },
+    SET_MOHU_ARTICLE_LIST: function (state, data) {
+       state.moHuList = data
     },
     SET_RE_ARTICLE_LIST: function (state, data) {
        state.reList = data
@@ -28,9 +32,28 @@ export const actions = {
   async getArticleList({ commit }, { page, size, filter}) {
     try {
       const { data } = await Request.article.getArticleList(page,size,filter)
-      console.log(data); 
+      console.log(data);
       if (data.code === 1) {
         commit('SET_ARTICLE_LIST', data.data.data)
+        commit('SET_ARTICLE_COUNT', data.data.count)
+      };
+      
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Bad credentials')
+      }
+      throw error
+    }
+  },
+
+  //模糊查询
+  async getMoHuArticleList({ commit }, { page, size, filter}) {
+    try {
+      console.log(filter);
+      const { data } = await Request.article.getArticleList(page,size,filter)
+       
+      if (data.code === 1) {
+        commit('SET_MOHU_ARTICLE_LIST', data.data.data)
         commit('SET_ARTICLE_COUNT', data.data.count)
       };
       
@@ -45,7 +68,7 @@ export const actions = {
   //获取热门排行列表
   async getHotArticleList({ commit }, { page, size, filter}) {
     try {
-      
+
       const { data } = await Request.article.getArticleList(page,size,filter)
       if (data.code === 1) {
         commit('SET_HOST_LIST', data.data.data)

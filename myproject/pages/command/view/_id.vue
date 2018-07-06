@@ -117,7 +117,7 @@ export default {
               size:10,
               filter:{recommend:'5b3dd6ff64fec052c8b60521'}
             });
-
+    
 
   },
   computed:{
@@ -151,7 +151,8 @@ export default {
         return  parseInt(this.article.reserved_3)
       }
       return 0
-    }
+    },
+
   },
   methods:{
   	  //分页跳转
@@ -202,16 +203,18 @@ export default {
       //点赞
      async zan(cmd){
         try {
-             let z = parseInt(cmd.reserved_3)+1
+             let z = 0
+             if (!isNaN(cmd.reserved_3)) {
+                z = parseInt(cmd.reserved_3) + 1
+             };
+            // console.log(z+1);
              let params = {
-               
                _id:cmd._id,
                reserved_3: z.toString()
                
              }
              let result = await this.$store.dispatch('article/updateArticle', {params:params})
              if (result === 1) {
-               cmd.reserved_3 = cmd.reserved_3
                this.$message.success('点赞成功');
              }
           } catch (e) {
@@ -283,12 +286,10 @@ export default {
              this.$message.error(e.message);
           }
       },
-
      
   },
 
   created:function (){
-    // this.getArticles()
     // this.getReArticleList()
     // this.getCommentList()
   }

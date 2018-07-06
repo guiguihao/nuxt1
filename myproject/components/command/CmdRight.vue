@@ -21,7 +21,7 @@
 	         	<span v-if="index == 2" style ="color: #67C23A; font-size: 20px;font-style:italic">0{{index+1}}.</span>
 	         	<span v-if="index > 2 && index <9"  style ="color: #909399; font-size: 20px;font-style:italic">0{{index+1}}.</span>
 	         	<span v-if="index >=9"  style ="color: #909399; font-size: 20px;font-style:italic">{{index+1}}.</span>
-	         	<nuxt-link :to="'/command/view/' + o._id">{{o.title}}</nuxt-link>
+	         	<a :href="'/command/view/' + o._id" target="_blank">{{o.title}}</a>
 	         </li>
 	 	  </ul>
 	 	  
