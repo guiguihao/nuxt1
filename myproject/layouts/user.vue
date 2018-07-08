@@ -9,19 +9,18 @@
                 :default-openeds="['1']"
                 default-active="2"
                 class="el-menu-vertical-demo"
-                @open="handleOpen"
-                @close="handleClose"
+        
                 >
                 <el-submenu index="1">
                   <template slot="title">
                     <i class="el-icon-location"></i>
-                    <span>导航一</span>
+                    <span>导航</span>
                   </template>
                   <el-menu-item-group>
                     <el-menu-item index="1-1">我的命令</el-menu-item>
-                    <el-menu-item index="1-2">我的评论</el-menu-item>
+       <!--              <el-menu-item index="1-2">我的评论</el-menu-item>
                     <el-menu-item index="1-3">我的收藏</el-menu-item>
-                    <el-menu-item index="1-4">资料</el-menu-item>
+                    <el-menu-item index="1-4">资料</el-menu-item> -->
                     <el-menu-item index="1-5"></el-menu-item>
                     <el-menu-item index="1-5"></el-menu-item>
                     <el-menu-item index="1-5"></el-menu-item>
@@ -58,6 +57,9 @@ export default {
     GlobalHead,
     GlobarBottom,
   },
+  methods:{
+
+  }
 }
 </script>
 

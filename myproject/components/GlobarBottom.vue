@@ -2,7 +2,8 @@
   <div id="bottom">
   	<nuxt-link :to="'/test2'">免责申明</nuxt-link>
     <nuxt-link :to="'/test2'">关于我们</nuxt-link>
-    <nuxt-link :to="'/test2'">备案号:xxxx</nuxt-link>
+    <nuxt-link :to="'/test2'">联系我们</nuxt-link>
+    <a href="">备案号:皖ICP备17026243号-2</a>
   </div>
 </template>
 

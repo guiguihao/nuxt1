@@ -98,7 +98,7 @@ var RequestUser = {
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/user/login';
           } else {
-            url = '/app/user/logout';
+            url = '/api/app/user/login';
           }
           let p = new Promise(function(resolve, reject){        //做一些异步操作
             axios.post(url, params).then((res) => {
@@ -118,7 +118,7 @@ var RequestUser = {
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/user/logout';
           } else {
-            url = '/app/user/logout';
+            url = '/api/app/user/logout';
           }
           let p = new Promise(function(resolve, reject){        //做一些异步操作
             axios.post(url, {}).then((res) => {

@@ -1,8 +1,9 @@
 # PAGES
 reserved_1:"top 10 commands used"  #原文/英文标题
-reserved_2:""                      #输出
+reserved_2:""                      #英文描述
 reserved_3:null                    #点赞数
 reserved_4                         #替代方案id
+reserved_5:                        #输出
 
 This directory contains your Application Views and Routes.
 The framework reads all the .vue files inside this directory and creates the router of your application.

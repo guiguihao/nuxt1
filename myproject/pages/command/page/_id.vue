@@ -54,10 +54,15 @@ export default {
     }
   },
   async asyncData({ store,params }) {
+     await store.dispatch('article/getArticleCount', {
+              page:1,
+              size:1,
+              filter:{status:3}
+            });
       await store.dispatch('article/getArticleList', {
               page:parseInt(params.id),
               size:20,
-              filter:{}
+              filter:{status:3}
             });
       await store.dispatch('article/getHotArticleList', {
               page:1,

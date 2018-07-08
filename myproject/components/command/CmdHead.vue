@@ -1,16 +1,16 @@
 <template>
   <div id="head">
   	<el-row>
-  	  <el-col :span="8" id = "head_title">11111054515</el-col>
-  	  <el-col :md="5" class = "hidden-md-and-down" >
-  	    <el-input placeholder="请输入内容" v-model="input5">
+  	  <el-col :span="9" id = "head_title"><a href="/">ROOTOPEN</a></el-col>
+  	  <el-col :span="7" >
+  	    <el-input placeholder="请输入搜索内容" v-model="input5" @keyup.enter.native="searchClick">
   	      
-  	       <el-button slot="append" icon="el-icon-search"></el-button>
+  	       <el-button slot="append" icon="el-icon-search" @click="searchClick"></el-button>
   	     </el-input>
   	  </el-col>  
-      <el-col :span="8" class="hidden-sm-and-down">
+      <el-col :span="7" class="hidden-sm-and-down">
         <el-button type="text" class = "head_hy" @click="logOutClick" v-if = "username">退出</el-button>
-        <el-button type="text" class = "head_hy" v-if = "username">欢迎:{{username}}  <span style="margin-left:10px">会员中心</span></el-button>
+        <el-button type="text" class = "head_hy" v-if = "username" @click = "clickUser">欢迎:{{username}}  <span style="margin-left:10px">会员中心</span></el-button>
         <el-button type="text" class = "head_hy" @click="loginClick" v-if = "!username">登录</el-button>
         
       </el-col>
@@ -82,6 +82,18 @@
            this.$message.error(e.message);
         }
       },
+
+      searchClick(){
+        if (this.input5) {
+          window.location.href = "/command/query/1/" +this.input5
+        }else{
+          this.$message.error('请输入要搜索的命令或相关内容')
+        }
+      },
+
+      clickUser(){
+        window.location.href = "/user"
+      },
     },
 
     created: function () {
@@ -105,6 +117,13 @@
 {
 	margin-left: 30px;
 	font-size: 40px;
+}
+
+#head_title a
+{
+  color: #fff;
+  text-decoration: none;
+
 }
 
 .head_hy{

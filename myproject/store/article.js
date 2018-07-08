@@ -6,6 +6,7 @@ export const state = () => ({
   moHuList:[],
   hostList:[],
   allCount:0,
+  zongCount:0,
   currentArticle:''
 })
 
@@ -24,14 +25,54 @@ export const mutations = {
     },
     SET_ARTICLE_COUNT: function (state, data) {
        state.allCount = data
+    },
+    SET_ZONG_COUNT: function (state, data) {
+       state.zongCount = data
     }
 }
 
 export const actions = {
+
+
+  //获取总数
+  async getArticleCount({ commit }, { page, size, filter}) {
+    try {
+      const { data } = await Request.article.getArticleList(page,size,filter)
+      console.log(data);
+      if (data.code === 1) {
+        commit('SET_ZONG_COUNT', data.data.count)
+      };
+      
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Bad credentials')
+      }
+      throw error
+    }
+  },
+
   //获取列表
   async getArticleList({ commit }, { page, size, filter}) {
     try {
       const { data } = await Request.article.getArticleList(page,size,filter)
+      console.log(data);
+      if (data.code === 1) {
+        commit('SET_ARTICLE_LIST', data.data.data)
+        commit('SET_ARTICLE_COUNT', data.data.count)
+      };
+      
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Bad credentials')
+      }
+      throw error
+    }
+  },
+
+  //前端查询列表获取列表
+  async getApiArticleList({ commit }, { page, size, filter}) {
+    try {
+      const { data } = await Request.article.getApiArticleList(page,size,filter)
       console.log(data);
       if (data.code === 1) {
         commit('SET_ARTICLE_LIST', data.data.data)

@@ -32,7 +32,7 @@ var RequestComment = {
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/comment/add';
           } else {
-            url = '/app/comment/add';
+            url = '/api/app/comment/add';
           }
           //myTest();
           let params = {
@@ -58,7 +58,7 @@ var RequestComment = {
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/comment/update';
           } else {
-            url = '/app/comment/update';
+            url = '/api/app/comment/update';
           }
           //myTest();
           let params = {

@@ -25,7 +25,7 @@
      :page-size="20"
      background
      layout="prev, pager, next"
-     :total="1000">
+     :total=allcount>
    </el-pagination>
  </div>
 </template>
@@ -51,20 +51,35 @@ export default {
       currentPage2:1,
       postFontSize:10,
       queryCmd:'',
+
     }
   },
   async asyncData({ store,params }) {
-      await store.dispatch('article/getArticleList', {
+    let filter = {}
+    if (escape(params.id).indexOf( "%u" )<0)
+    {
+       // console.log("没有包含中文")
+       filter = {'status':3,"$or":[{"content":{"$regex":'^' + params.id}}]}
+     } else {
+       // console.log( "包含中文" );
+       filter = {'status':3,"$or":[{"title":{"$regex": params.id}}]}
+    }
+     await store.dispatch('article/getArticleCount', {
               page:1,
+              size:1,
+              filter:{status:3}
+            });
+      await store.dispatch('article/getArticleList', {
+              page:parseInt(params.page),
               size:20,
-              filter:{"$or":[{"content":{"$regex":params.id}},{"title":{"$regex":params.id}}]}
+              filter:filter
             });
       await store.dispatch('article/getHotArticleList', {
               page:1,
               size:10,
-              filter:{recommend:'5b3dd6ff64fec052c8b60521'}
+              filter:{recommend:'5b3dd6ff64fec052c8b60521',status:3}
             });
-      return  {queryCmd:params.id}
+      return  {queryCmd:params.id,currentPage2:parseInt(params.page)}
   },
 
   computed:{
@@ -89,8 +104,7 @@ export default {
   	  //分页跳转
   	  handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
-        console.log(val);
-        this.$router.push({path:'/command/page/' + val})
+        window.location.href = '/command/query/' + val + '/'  + this.queryCmd
       },
 
       //执行复制命令

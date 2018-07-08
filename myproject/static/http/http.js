@@ -25,7 +25,7 @@ axios.interceptors.request.use(
             console.log(config.url); 
              config.baseURL = ''
            }else{
-             config.baseURL = 'http://api.weiyunbuy.com'
+             config.baseURL = 'http://api.rootopen.com'
            };
            return config;
     },

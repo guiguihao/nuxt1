@@ -2,8 +2,9 @@
 
   <div style ="background-color: #3b8070;">
     <cmd-head></cmd-head>
-    <div id = "des" style ="background-color: #3b8070;">
-
+    <div id = "des" style ="background-color: #3b8070;  color: #fff;">
+         <p>共收录<span style="font-size: 50px">{{allcount}}</span>条命令行</p>
+         这里是记录和分享命令行的地方, 所有命令行都可以进行评论、点赞.
     </div>
     <el-row>
       <el-col :md="18" :sm="24"> <nuxt/></el-col>
@@ -27,7 +28,13 @@ export default {
     CmdRight,
     GlobarBottom,
   },
-}
+  computed:{
+       //总数据数量
+    allcount(){
+      return this.$store.state.article.zongCount
+    },
+  },
+ }
 </script>
 
 <style>
@@ -78,7 +85,9 @@ html {
 
 #des
 {
-  height: 200px;
   background-color: #35495e;
+  padding: 100px 0 100px 0;
+  text-align: center;
+  font-size: 30px;
 }
 </style>

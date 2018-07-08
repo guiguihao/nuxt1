@@ -15,6 +15,7 @@ var RequestArticle = {
             pageSize:pagesize,
             filter:filter
           }
+          console.log(params);
           let p = new Promise(function(resolve, reject){        //做一些异步操作
             axios.post(url, params).then((res) => {
              // console.log(JSON.stringify(res.data)); 
@@ -27,12 +28,40 @@ var RequestArticle = {
           return p;
    },
 
+   getApiArticleList: function(currentPage,pagesize,filter){
+          let url = '';
+          if(process.env.NODE_ENV === 'development') { //TEST
+            url = '/api/app/article/list';
+          } else {
+            url = '/api/app/article/list';
+          }
+          //myTest();
+          let params = {
+            page:currentPage,
+            pageSize:pagesize,
+            filter:filter
+          }
+          console.log(params);
+          let p = new Promise(function(resolve, reject){        //做一些异步操作
+            axios.post(url, params).then((res) => {
+             // console.log(JSON.stringify(res.data)); 
+              resolve(res);
+              }).catch(function(error) {
+
+                reject(error)
+              });
+          });
+          return p;
+   },
+
+
+
    addArticle: function(paramsDic){
           let url = '';
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/article/add';
           } else {
-            url = '/app/article/add';
+            url = '/api//app/article/add';
           }
           //myTest();
           let params = {
@@ -58,7 +87,7 @@ var RequestArticle = {
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/article/update';
           } else {
-            url = '/app/article/update';
+            url = '/api//app/article/update';
           }
           //myTest();
           let params = {

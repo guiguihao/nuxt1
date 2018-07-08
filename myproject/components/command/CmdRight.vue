@@ -6,7 +6,7 @@
 	 	    
 	 	  </div>
 	 	  <el-tag :type="typeColors[index%typeColors.length]" v-for="(o,index) in cycmds" :key="o" class = "cpml">
-	 	   <nuxt-link :to="'/test2'">{{o}}</nuxt-link>
+	 	   <a :href="'/command/query/1/' + o" target="_blank">{{o}}</a>
 	 	  </el-tag>
 	 	</el-card>
 
@@ -34,7 +34,7 @@
   	name:'CmdRight',
   	data:()=>{
        return{
-         cycmds:['dd','ff','xx','pp','dd','ff','xx','pp','dd','ff','xx','pp','dd','ff','xx','pp',],
+         cycmds:['ls','cd','pwd','touch','mkdir','rm','man','cp','mv','cat','more','less','date','find','grep','tar','ps','nano'],
          typeColors:['','success','info','warning','danger'],
        }
   	},

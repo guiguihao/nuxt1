@@ -17,8 +17,8 @@
      	</el-row>
      </div>
      <h5>输出</h5>
-     <div class = "out" v-if = "article.reserved_2">
-       {{article.reserved_2}}
+     <div class = "out" v-if = "article.reserved_5">
+       {{article.reserved_5}}
      </div>
       <el-button type="danger" circle class = "zan" @click = "zan(article)">赞</el-button>
    </el-card>
@@ -33,19 +33,19 @@
      <div class="text item">
       <el-row>
         <el-col :span="22" ><h4>{{article.overview}}.</h4></el-col>
-        <el-col :span="2" style ="text-align: right;"><h2 style="float:right; margin-left:2px">{{zanCount}}</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
+        <el-col :span="2" style ="text-align: right;"><h2 style="float:right; margin-left:2px">{{article.reserved_3}}</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
       </el-row>
-       <canvas-code name ="012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" :canvasId = o></canvas-code>
+       <canvas-code :name ="article.content" :canvasId = article._id></canvas-code>
        <el-row style="margin-top:10px">
         <el-col :span="20" >{{article.author.name}} {{article.date}}</el-col>
         <el-col :span="4"><el-button size="mini" style="float:right" @click="cpcmd(article.content)">复制命令</el-button></el-col>  
       </el-row>
      </div>
      <h5>输出</h5>
-     <div class = "out" v-if = "article.reserved_2">
-      {{article.reserved_2}}
+     <div class = "out" v-if = "article.reserved_5">
+      {{article.reserved_5}}
      </div>
-      <el-button type="danger" circle class = "zan(article)" >赞</el-button>
+      <el-button type="danger" circle class = "zan" @click = "zan(article)">赞</el-button>
    </el-card>
 
 
@@ -97,6 +97,11 @@ export default {
     }
   },
   async asyncData({ store,params }) {
+     await store.dispatch('article/getArticleCount', {
+              page:1,
+              size:1,
+              filter:{}
+            });
       await store.dispatch('article/getArticleList', {
               page:1,
               size:1,
@@ -105,7 +110,7 @@ export default {
       await store.dispatch('article/getReArticleList', {
               page:1,
               size:999,
-              filter:{reserved_4:params.id}
+              filter:{reserved_4:params.id,status:3}
             });
        await store.dispatch('comment/getCommentList', {
               page:1,
@@ -126,7 +131,7 @@ export default {
       if (this.$store.state.article.allCount>0) {
         return this.$store.state.article.list[0]
       }else{
-        return null
+        return {title:'',content:''}
       }
     },
     //替代方案数据
@@ -207,6 +212,9 @@ export default {
              if (!isNaN(cmd.reserved_3)) {
                 z = parseInt(cmd.reserved_3) + 1
              };
+             if (!cmd.reserved_3) {
+              z = 1
+             }
             // console.log(z+1);
              let params = {
                _id:cmd._id,
@@ -248,7 +256,7 @@ export default {
           title:this.cmd.title,
           content:this.cmd.content,
           overview:this.cmd.overview,
-          reserved_2:this.cmd.out,
+          reserved_5:this.cmd.out,
           reserved_4:this.$router.currentRoute.params.id,
           source:0,
           status:0,
