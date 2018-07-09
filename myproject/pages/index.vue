@@ -1,63 +1,157 @@
 <template>
-  <section class="container">
- <!--    <div>
-      <app-button-a  icon = 'icon-zhinengsuo' name = 'my device'></app-button-a>
-      <app-button-b  icon = 'icon-kongtiao1' name = '空调'></app-button-b>
-    </div> -->
-    <nuxt-link :to="'/test2'">0222</nuxt-link>
-  </section>
+ <div>
+   <el-card class="box-card" id = "box-card">
+     <div slot="header" class="clearfix">
+       <span>所有命令 ({{allcount}})</span>
+     </div>
+     <div v-for="o in articles" :key="o._id" class="text item">
+     	<el-row>
+     	  <el-col :span="22" ><a :href="'/command/view/' + o._id" target = "_blank"><h3>{{o.title}}</h3></a></el-col>
+     	  <el-col :span="2" style ="text-align: right;"><h2 v-if = "o.reserved_3" style="float:right; margin-left:2px">{{o.reserved_3}}</h2><h2 v-else style="float:right; margin-left:2px">0</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
+     	</el-row>
+       <p style ="margin:10px 0 10px 0">{{o.overview}}</p>
+       <canvas-code :name = o.content :canvasId = o._id></canvas-code>
+       <el-row style="margin-top:10px">
+     	  <el-col :span="20" >{{o.author.name}} {{o.date}}</el-col>
+     	  <el-col :span="4"><el-button size="mini" style="float:right" @click="cpcmd(o.content)">复制命令</el-button></el-col>  
+     	</el-row>
+     </div>
+   </el-card>
+   <!-- 分页 -->
+   <el-pagination
+     @current-change="handleCurrentChange"
+      :current-page.sync="currentPage2"
+     :pager-count="5"
+     :page-size="20"
+     background
+     layout="prev, pager, next"
+     :total="allcount">
+   </el-pagination>
+ </div>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
-import AppButtonA from '~/components/AppButtonA.vue'
-import AppButtonB from '~/components/AppButtonB.vue'
+import CanvasCode from '~/components/command/CmdCanvas'
 export default {
+  layout: 'command',
   components: {
-    AppLogo,
-    AppButtonA,
-    AppButtonB,
+    CanvasCode
+  },
+  head () {
+    return {
+      
+      title: this.title,
+      meta: [
+        {name: 'description', content: this.title}
+      ]
+    }
   },
   data:()=>{
     return {
+      currentPage2:1,
       postFontSize:10,
 
     }
   },
-  methods:{
-      
+  async asyncData({ store,params }) {
+      await store.dispatch('article/getArticleCount', {
+              page:1,
+              size:1,
+              filter:{status:3}
+            });
+      await store.dispatch('article/getArticleList', {
+              page:1,
+              size:20,
+              filter:{status:3}
+            });
+      await store.dispatch('article/getHotArticleList', {
+              page:1,
+              size:10,
+              filter:{recommend:'5b3dd6ff64fec052c8b60521',status:3}
+            });
+
   },
+
+  computed:{
+    articles(){
+      return this.$store.state.article.list
+    },
+    //总数据数量
+    allcount(){
+      return this.$store.state.article.allCount
+    },
+    title(){
+      let title = '';
+      this.articles.forEach(function(a){  
+        title += a.title
+      });
+      return title
+    }
+  },
+
+  methods:{
+  	  //分页跳转
+  	  handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+        console.log(val);
+        window.location.href = "/command/page/" +val
+        // this.$router.push({path:'/command/page/' + val})
+      },
+
+      //执行复制命令
+      cpcmd(data){
+        console.log('====')
+        var oInput = document.createElement('input');
+        oInput.value = data;
+        document.body.appendChild(oInput);
+        oInput.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        oInput.className = 'oInput';
+        oInput.style.display='none';
+        this.$message({
+          message: '复制成功',
+          type: 'success'
+        });
+
+      },
+     
+  },
+
+  created: function () {
+    
+   
+  }
  
 }
 </script>
 
-<style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style type="text/css">
+ .text {
+    font-size: 14px;
+  }
 
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+  .item {
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #d3d3d3;
+  }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
 
-.links {
-  padding-top: 15px;
-}
+  .box-card {
+  	margin: 10px;
+    
+  }
+
+  .box-card a{
+  	color: #303133;
+    text-decoration: none;
+  }
 </style>

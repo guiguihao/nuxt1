@@ -15,7 +15,10 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '~static/favicon.ico' }
+    ],
+    script: [
+     {src: 'https://hm.baidu.com/hm.js?41321b6b4b6c10be3cf45676d2b31deb'},/*引入百度统计的js*/
     ]
   },
 

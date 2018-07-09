@@ -12,20 +12,24 @@
         <el-button type="text" class = "head_hy" @click="logOutClick" v-if = "username">退出</el-button>
         <el-button type="text" class = "head_hy" v-if = "username" @click = "clickUser">欢迎:{{username}}  <span style="margin-left:10px">会员中心</span></el-button>
         <el-button type="text" class = "head_hy" @click="loginClick" v-if = "!username">登录</el-button>
+        <el-button type="text" class = "head_hy" @click="zhucheClick" v-if = "!username">注册</el-button>
         
       </el-col>
   	</el-row>
   <login-dig :loginVisible = 'loginVisible' v-on:close = "closed" v-on:sure = "sure()"></login-dig>
+  <register-dig :zhuceVisible = 'zhuceVisible' v-on:close = "closed" v-on:sure = "sure()"></register-dig>
   </div>
 </template>
 
 
 <script>
   import LoginDig from '~/components/LoginDig'
+  import RegisterDig from '~/components/RegisterDig'
   export default {
   	name:'CmdHead',
     components: {
       LoginDig,
+      RegisterDig,
     },
     head () {
       return {
@@ -39,7 +43,7 @@
       return{
         input5:'',
         loginVisible:false,
-
+        zhuceVisible:false,
       }
     },
     computed:{
@@ -58,10 +62,15 @@
        closed(){
         console.log("===========");
         this.loginVisible = false;
+        this.zhuceVisible = false;
+      },
+      zhucheClick(){
+        this.zhuceVisible = true;
       },
 
       sure(){
         this.loginVisible = false;
+        this.zhuceVisible = false;
       },
       //调用登陆接口
       async login(){
@@ -129,7 +138,7 @@
 .head_hy{
   color: #fff;
   float: right;
-  margin: 20px 50px 0 0;
+  margin: 20px 10px 0 0;
 }
 
 </style>
