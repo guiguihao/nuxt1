@@ -1,6 +1,6 @@
 <template>
   <div id="digPl">
-     <el-dialog title="注册" :visible="loginVisible" @close = "$emit('close')">
+     <el-dialog title="注册" :visible="zhuceVisible" @close = "$emit('close')">
        <el-form  >
          <el-form-item label="用户名" :label-width="formLabelWidth"  >
            <el-input v-model="userName" auto-complete="off" style="width:240px"></el-input>
@@ -9,13 +9,16 @@
            <el-input v-model="passWord" auto-complete="off" style="width:240px"></el-input>
          </el-form-item>
           <el-form-item label="邮箱" :label-width="formLabelWidth"  >
-           <el-input v-model="email" auto-complete="off" style="width:120px"></el-input>
-           <el-input v-model="code" auto-complete="off" style="width:120px"></el-input>
-           <el-button type="primary">验证邮箱</el-button>
+           <el-input v-model="email" auto-complete="off" style="width:240px"></el-input>
+           <el-button type="primary" style="margin-left: 10px" @click="sendmial">发送验证码</el-button>
+
+         </el-form-item>
+           <el-form-item label="验证码" :label-width="formLabelWidth"  >
+           <el-input v-model="code" placeholder="请进验证邮箱中获取验证码" auto-complete="off" style="width:240px"></el-input>
          </el-form-item>
        </el-form>
        <div slot="footer" class="dialog-footer">
-         <el-button type="primary" @click="zhuce">确 定</el-button>
+         <el-button type="primary" @click="zhuce">注  册</el-button>
        </div>
      </el-dialog>
   </div>
@@ -38,6 +41,12 @@
       userName:{
         default: ''
       },
+      email:{
+        default: ''
+      },
+      code:{
+        default: ''
+      },
       zhuceVisible:{
         default: false
       },
@@ -47,18 +56,45 @@
     },
     methods:{
       async zhuce() {
-      this.zhuceVisible = false;
-      try {
-        await this.$store.dispatch('zhuce', {
-          username: this.userName,
-          password: hex_md5(this.passWord)
-        })
-        this.userName = ''
-        this.passWord = ''
-      } catch (e) {
-        this.$message.error(e.message);
-      }
-    },
+          if (!this.userName || this.userName == '') {
+            return this.$message.error('用户名不能为空');
+          }
+          if (!this.passWord || this.passWord == '') {
+            return this.$message.error('密码不能为空');
+          }
+          if (!this.code || this.code == '') {
+            return this.$message.error('验证码不能为空');
+          }
+          if (this.code != (this.$store.state.code>>10).toString() ) {
+            return this.$message.error('验证码不正确或已过期');
+          }
+          try {
+            await this.$store.dispatch('zhuce', {
+              name: this.userName,
+              email: this.email,
+              password: hex_md5(this.passWord)
+            })
+            this.userName = ''
+            this.passWord = ''
+            this.zhuceVisible = false;
+
+          } catch (e) {
+            this.$message.error(e.message);
+          }
+      },
+      async sendmial() {
+          if (!this.email || this.email == '') {
+            return this.$message.error('邮箱不能为空');
+          }
+          try {
+            await this.$store.dispatch('sendmial', {
+              email: this.email,
+            })
+            this.$message.success('发送验证码成功');
+          } catch (e) {
+            this.$message.error(e.message);
+          }
+      },
     }
   }
 </script>

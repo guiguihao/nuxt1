@@ -132,6 +132,26 @@ var RequestUser = {
           return p;
    },
 
+    //登出
+   sendEmailCode: function(email){
+          let url = '';
+          if(process.env.NODE_ENV === 'development') { //TEST
+            url = '/api/app/sendmial/code';
+          } else {
+            url = '/api/app/sendmial/code';
+          }
+          let p = new Promise(function(resolve, reject){        //做一些异步操作
+            axios.post(url, {email:email}).then((res) => {
+             // console.log(JSON.stringify(res.data)); 
+              resolve(res);
+              }).catch(function(error) {
+
+                reject(error)
+              });
+          });
+          return p;
+   },
+
 }
 
 export default RequestUser
