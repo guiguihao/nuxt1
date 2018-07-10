@@ -41,7 +41,7 @@ var RequestUser = {
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/user/add';
           } else {
-            url = '/app/user/add';
+            url = '/api/app/user/add';
           }
           let p = new Promise(function(resolve, reject){        //做一些异步操作
             axios.post(url, params).then((res) => {

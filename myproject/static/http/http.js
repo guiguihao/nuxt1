@@ -22,7 +22,7 @@ axios.interceptors.request.use(
            }
         
            if (config.url.indexOf('/api')>-1) {
-            console.log(config.url); 
+            // console.log(config.url); 
              config.baseURL = ''
            }else{
              config.baseURL = 'http://api.rootopen.com'

@@ -15,7 +15,7 @@ var RequestArticle = {
             pageSize:pagesize,
             filter:filter
           }
-          console.log(params);
+          // console.log(params);
           let p = new Promise(function(resolve, reject){        //做一些异步操作
             axios.post(url, params).then((res) => {
              // console.log(JSON.stringify(res.data)); 
