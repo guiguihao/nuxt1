@@ -40,9 +40,10 @@ export default {
   head () {
     return {
       
-      title: this.title,
+      title: 'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
       meta: [
         {name: 'description', content: this.title}
+        
       ]
     }
   },

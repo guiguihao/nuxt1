@@ -35,7 +35,8 @@
       return {
         meta: [
 
-          { hid: 'description', name: 'description', content: 'rootopen.com linux命令大全' }
+          { hid: 'description', name: 'description', content: 'rootopen.com linux命令大全' },
+          {name: 'keywords', content: 'linux,命令,命令行'}
         ]
       }
     },

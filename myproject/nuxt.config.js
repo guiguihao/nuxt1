@@ -15,7 +15,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '~static/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
      {src: 'https://hm.baidu.com/hm.js?41321b6b4b6c10be3cf45676d2b31deb'},/*引入百度统计的js*/
@@ -64,7 +64,7 @@ module.exports = {
     proxy: true // Can be also an object with default options 
   }, 
   proxy: { 
-    // '/api/': { target: 'http://api.rootopen.com', pathRewrite: {'^/api/': ''} } }
-    '/api/': { target: 'http://127.0.0.1:5000', pathRewrite: {'^/api/': ''} } }
+    '/api/': { target: 'http://api.rootopen.com', pathRewrite: {'^/api/': ''} } }
+    // '/api/': { target: 'http://127.0.0.1:5000', pathRewrite: {'^/api/': ''} } }
 
 }
