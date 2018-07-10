@@ -38,7 +38,7 @@ export const actions = {
   async getArticleCount({ commit }, { page, size, filter}) {
     try {
       const { data } = await Request.article.getArticleList(page,size,filter)
-      console.log(data);
+      // console.log(data);
       if (data.code === 1) {
         commit('SET_ZONG_COUNT', data.data.count)
       };
@@ -55,7 +55,7 @@ export const actions = {
   async getArticleList({ commit }, { page, size, filter}) {
     try {
       const { data } = await Request.article.getArticleList(page,size,filter)
-      console.log(data);
+      // console.log(data);
       if (data.code === 1) {
         commit('SET_ARTICLE_LIST', data.data.data)
         commit('SET_ARTICLE_COUNT', data.data.count)
@@ -73,7 +73,7 @@ export const actions = {
   async getApiArticleList({ commit }, { page, size, filter}) {
     try {
       const { data } = await Request.article.getApiArticleList(page,size,filter)
-      console.log(data);
+      // console.log(data);
       if (data.code === 1) {
         commit('SET_ARTICLE_LIST', data.data.data)
         commit('SET_ARTICLE_COUNT', data.data.count)
@@ -90,7 +90,7 @@ export const actions = {
   //模糊查询
   async getMoHuArticleList({ commit }, { page, size, filter}) {
     try {
-      console.log(filter);
+      // console.log(filter);
       const { data } = await Request.article.getArticleList(page,size,filter)
        
       if (data.code === 1) {
@@ -145,7 +145,7 @@ export const actions = {
   async addArticle({ commit }, {params }) {
     try {
       const { data } = await Request.article.addArticle(params)
-      console.log(data); 
+      // console.log(data); 
       if (data.code === 1) {
          return 1
       }else{
@@ -163,7 +163,7 @@ export const actions = {
   async updateArticle({ commit }, {params }) {
     try {
       const { data } = await Request.article.updateArticle(params)
-      console.log(data); 
+      // console.log(data); 
       if (data.code === 1) {
          return 1
       }else{

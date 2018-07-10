@@ -94,7 +94,7 @@ var RequestUser = {
           for (let k in dic){
             params[k] = dic[k];
           }
-          console.log(JSON.stringify(params));
+          // console.log(JSON.stringify(params));
           if(process.env.NODE_ENV === 'development') { //TEST
             url = '/api/app/user/login';
           } else {
