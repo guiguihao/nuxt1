@@ -69,14 +69,15 @@
             return this.$message.error('验证码不正确或已过期');
           }
           try {
-            await this.$store.dispatch('zhuce', {
+            let result = await this.$store.dispatch('zhuce', {
               name: this.userName,
               email: this.email,
               password: hex_md5(this.passWord)
             })
-            this.userName = ''
-            this.passWord = ''
             this.zhuceVisible = false;
+            if (result == 1) {
+               this.$message.success('注册成功');
+            }
 
           } catch (e) {
             this.$message.error(e.message);

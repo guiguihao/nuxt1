@@ -40,7 +40,7 @@ export default {
   head () {
     return {
       
-      title: this.queryCmd + 'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
+      title: this.queryCmd + '命令' +'|' +  'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
       meta: [
         {name: 'description', content: this.title}
       ]

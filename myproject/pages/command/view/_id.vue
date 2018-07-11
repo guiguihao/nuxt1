@@ -80,7 +80,7 @@ export default {
   },
   head () {
     return {
-      title: this.article.title + '|' + this.article.reserved_1 + 'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
+      title: this.article.title + '|' + this.article.reserved_1 + '|' + 'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
       meta: [
         {name: 'description', content: this.article.content + '|' + this.article.title + '|' + this.article.overview}
       ]
