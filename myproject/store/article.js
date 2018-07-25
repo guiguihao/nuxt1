@@ -20,6 +20,11 @@ export const mutations = {
     SET_RE_ARTICLE_LIST: function (state, data) {
        state.reList = data
     },
+     SET_PUSH_RE_ARTICLE_LIST: function (state, data) {
+       data.forEach((d)=>{
+          state.reList.push(d)
+       })
+    },
     SET_HOST_LIST: function (state, data) {
        state.hostList = data
     },
@@ -55,7 +60,7 @@ export const actions = {
   async getArticleList({ commit }, { page, size, filter}) {
     try {
       const { data } = await Request.article.getArticleList(page,size,filter)
-      // console.log(data);
+      // console.log(data.data.data);
       if (data.code === 1) {
         commit('SET_ARTICLE_LIST', data.data.data)
         commit('SET_ARTICLE_COUNT', data.data.count)
@@ -91,6 +96,7 @@ export const actions = {
   async getMoHuArticleList({ commit }, { page, size, filter}) {
     try {
       // console.log(filter);
+      filter.type = '5b28575e64fec03d299a3ea1'
       const { data } = await Request.article.getArticleList(page,size,filter)
        
       if (data.code === 1) {
@@ -128,9 +134,24 @@ export const actions = {
     commit('SET_RE_ARTICLE_LIST', null)
     try {
       const { data } = await Request.article.getArticleList(page,size,filter)
-      console.log(data); 
       if (data.code === 1) {
         commit('SET_RE_ARTICLE_LIST', data.data.data)
+      };
+      
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Bad credentials')
+      }
+      throw error
+    }
+  },
+//前端获取替换方案列表
+  async getApiReArticleList({ commit }, { page, size, filter}) {
+    try {
+      const { data } = await Request.article.getApiArticleList(page,size,filter)
+      // console.log(data);
+      if (data.code === 1) {
+         commit('SET_PUSH_RE_ARTICLE_LIST', data.data.data)
       };
       
     } catch (error) {

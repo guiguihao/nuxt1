@@ -50,7 +50,6 @@ export default {
       //提交方案
       tijiao(){
         if (this.$store.state.authUser) {
-          this.cmd.title = this.article.title;
           this.cmdDialogFormVisible = true;
         }else{
           this.$message.error('请先登陆');

@@ -152,7 +152,7 @@ export default {
         title:data.title,
         content:data.content,
         overview:data.overview,
-        reserved_5:data.out,
+        out:data.reserved_5,
         _id:data._id
        }
        this.cmdDialogFormVisible = true

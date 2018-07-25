@@ -6,7 +6,7 @@
      </div>
      <div class="text item">
      	<el-row>
-     	  <el-col :span="22" > <h4>{{article.overview}}.</h4></el-col>
+     	  <el-col :span="22" ><pre class="overview">{{article.overview}}</pre>.</el-col>
      	  <el-col :span="2" style ="text-align: right;"><h2 style="float:right; margin-left:2px">{{zanCount}}</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
      	</el-row>
       <!-- <p style ="margin:10px 0 10px 0">{{o.overview}}</p> -->
@@ -18,7 +18,7 @@
      </div>
      <h5>输出</h5>
      <div class = "out" v-if = "article.reserved_5">
-       {{article.reserved_5}}
+      <pre>{{article.reserved_5}}</pre> 
      </div>
       <el-button type="danger" circle class = "zan" @click = "zan(article)">赞</el-button>
    </el-card>
@@ -35,7 +35,7 @@
         <el-col :span="22" ><h4>{{article.overview}}.</h4></el-col>
         <el-col :span="2" style ="text-align: right;"><h2 style="float:right; margin-left:2px">{{article.reserved_3}}</h2><i class="el-icon-star-on" style="float:right; margin-top:5px"></i></el-col>  
       </el-row>
-       <canvas-code :name ="article.content" :canvasId = article._id></canvas-code>
+       <canvas-code :name ="article.content" :canvasId = article._id style="margin-top: 10px"></canvas-code>
        <el-row style="margin-top:10px">
         <el-col :span="20" >{{article.author.name}} {{article.date}}</el-col>
         <el-col :span="4"><el-button size="mini" style="float:right" @click="cpcmd(article.content)">复制命令</el-button></el-col>  
@@ -43,7 +43,7 @@
      </div>
      <h5>输出</h5>
      <div class = "out" v-if = "article.reserved_5">
-      {{article.reserved_5}}
+      <pre>{{article.reserved_5}}</pre>
      </div>
       <el-button type="danger" circle class = "zan" @click = "zan(article)">赞</el-button>
    </el-card>
@@ -79,10 +79,12 @@ export default {
     CmdDigComment,
   },
   head () {
+    
+    let title = this.article.reserved_1 ? this.article.title + '|' + this.article.reserved_1 + '|' + 'rootopen.com是记录您命令行的地方|linux命令行|命令大全':this.article.title + '|' + 'rootopen.com是记录您命令行的地方|linux命令行|命令大全'
     return {
-      title: this.article.title + '|' + this.article.reserved_1 + '|' + 'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
+      title: title,
       meta: [
-        {name: 'description', content: this.article.content + '|' + this.article.title + '|' + this.article.overview}
+        {hid: 'description',name: 'description', content: this.article.content + '|' + this.article.title + '|' + this.article.overview}
       ]
     }
   },
@@ -294,18 +296,37 @@ export default {
              this.$message.error(e.message);
           }
       },
-     
+
+        //获取相同替换的数据
+        async reComment(data) {
+         try {
+          if (this.article.reserved_4) {
+           await this.$store.dispatch('article/getApiReArticleList', {
+             page:1,
+             size:999,
+             filter:{_id:this.article.reserved_4}
+           })
+         };
+       } catch (e) {
+       }
+     },
   },
 
   created:function (){
-    // this.getReArticleList()
-    // this.getCommentList()
+  
+    this.reComment()
   }
  
 }
 </script>
 
 <style type="text/css">
+ .overview{
+  color: #303133;
+  line-height: 23px;
+  font-size: 14px;
+  white-space: pre-wrap;
+ }
  .text {
     font-size: 14px;
   }
@@ -349,4 +370,5 @@ export default {
     padding: 10px 0px 20px 0px;
     border-bottom: solid 1px #d3d3d3;
   }
+
 </style>

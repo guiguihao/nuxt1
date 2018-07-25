@@ -34,8 +34,8 @@
   	name:'CmdRight',
   	data:()=>{
        return{
-         cycmds:['ls','cd','pwd','touch','mkdir','rm','man','cp','mv','cat','more','less','date','find','grep','tar','ps','nano'],
-         typeColors:['','success','info','warning','danger'],
+         cycmds:['ls','cd','pwd','touch','mkdir','rm','rmdir','man','cp','mv','cat','file','more','less','date','find','grep','tar','tree','ps','nano','ifconfig','route','whereis','ip','ln','mount','fuser','df','du','rpm','dpkg','passwd','chage','iconv','chmod','chown','chgrp',],
+         typeColors:['','success','info','warning','danger',],
        }
   	},
   	computed:{

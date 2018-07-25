@@ -42,7 +42,7 @@ export default {
       
       title: 'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
       meta: [
-        {name: 'description', content: this.title}
+        {hid: 'description',name: 'description', content: '这里是全球最大的命令行收录中文网站,您可以在这里获益,其他人也可以从你发布的命令行中获益,可以对所有命令行进行评论和投票'}
         
       ]
     }
@@ -58,12 +58,12 @@ export default {
       await store.dispatch('article/getArticleCount', {
               page:1,
               size:1,
-              filter:{status:3}
+              filter:{status:3,type:'5b28575e64fec03d299a3ea1'}
             });
       await store.dispatch('article/getArticleList', {
               page:1,
               size:20,
-              filter:{status:3}
+              filter:{status:3,type:'5b28575e64fec03d299a3ea1'}
             });
       await store.dispatch('article/getHotArticleList', {
               page:1,

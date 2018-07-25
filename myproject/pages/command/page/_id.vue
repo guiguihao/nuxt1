@@ -42,7 +42,7 @@ export default {
       
       title: '第' + this.currentPage2 +'页' + 'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
       meta: [
-        {name: 'description', content: this.title}
+        {hid: 'description',name: 'description', content: this.title}
       ]
     }
   },
@@ -57,12 +57,12 @@ export default {
      await store.dispatch('article/getArticleCount', {
               page:1,
               size:1,
-              filter:{status:3}
+              filter:{status:3,type:'5b28575e64fec03d299a3ea1'}
             });
       await store.dispatch('article/getArticleList', {
               page:parseInt(params.id),
               size:20,
-              filter:{status:3}
+              filter:{status:3,type:'5b28575e64fec03d299a3ea1'}
             });
       await store.dispatch('article/getHotArticleList', {
               page:1,

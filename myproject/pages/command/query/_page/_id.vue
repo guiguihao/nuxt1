@@ -42,7 +42,7 @@ export default {
       
       title: this.queryCmd + '命令' +'|' +  'rootopen.com是记录您命令行的地方|linux命令行|命令大全',
       meta: [
-        {name: 'description', content: this.title}
+        {hid: 'description',name: 'description', content: this.title}
       ]
     }
   },
@@ -59,15 +59,15 @@ export default {
     if (escape(params.id).indexOf( "%u" )<0)
     {
        // console.log("没有包含中文")
-       filter = {'status':3,"$or":[{"content":{"$regex":'^' + params.id}}]}
+       filter = {'status':3,"$or":[{"content":{"$regex":'^' + params.id}}],type:'5b28575e64fec03d299a3ea1'}
      } else {
        // console.log( "包含中文" );
-       filter = {'status':3,"$or":[{"title":{"$regex": params.id}}]}
+       filter = {'status':3,"$or":[{"title":{"$regex": params.id}}],type:'5b28575e64fec03d299a3ea1'}
     }
      await store.dispatch('article/getArticleCount', {
               page:1,
               size:1,
-              filter:{status:3}
+              filter:{status:3,type:'5b28575e64fec03d299a3ea1'}
             });
       await store.dispatch('article/getArticleList', {
               page:parseInt(params.page),

@@ -1,8 +1,7 @@
 <template>
   <div id="bottom">
-  	<nuxt-link :to="'/test2'">免责申明</nuxt-link>
-    <nuxt-link :to="'/test2'">关于我们</nuxt-link>
-    <nuxt-link :to="'/test2'">联系我们</nuxt-link>
+  	<a href="/command/article/5b48ba3864fec075375777e9">免责申明</a>
+    <a href="/command/article/5b48c71864fec0753757780a">关于我们</a>
     <a href="">备案号:皖ICP备17026243号-2</a>
   </div>
 </template>

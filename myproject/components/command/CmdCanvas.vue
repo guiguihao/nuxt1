@@ -35,11 +35,13 @@
       var initHeight=25;//绘制字体距离canvas顶部初始的高度
       var lastSubStrIndex= 0; //每次开始截取的字符串的索引
       var str = this.name;
+      if (!str) return
       //计算高
       for(let i=0;i<str.length;i++){ 
           lineWidth+=ctx.measureText(str[i]).width; 
-          if(lineWidth>canvasWidth){  
-              initHeight+=20;//20为字体的高度
+          let zjie = str[i]
+          if(lineWidth>canvasWidth || zjie === '\n'){  
+              initHeight+=22;//20为字体的高度
               lineWidth=0;
               lastSubStrIndex=i;
           } 
@@ -55,17 +57,23 @@
       ctx.fillStyle = "#fff";
       ctx.font="14px Arial";
       
-      ctx.fillText("$",5,initHeight);
+      if ((this.name.indexOf('$')>-1 && this.name.indexOf('$')<2) || (this.name.indexOf('#')>-1 && this.name.indexOf('#')<2)) {
+       
+      }else{
+         ctx.fillText("$",5,initHeight);
+      }
       for(let i=0;i<str.length;i++){ 
           lineWidth+=ctx.measureText(str[i]).width; 
-          if(lineWidth>canvasWidth){  
-              ctx.fillText(str.substring(lastSubStrIndex,i),20,initHeight);//绘制截取部分
-              initHeight+=20;//20为字体的高度
+          let zjie = str[i]
+          if(lineWidth>canvasWidth || zjie === '\n'){ 
+              if (zjie === '\n' && lastSubStrIndex !=0 ) {lastSubStrIndex +=1} 
+              ctx.fillText(str.substring(lastSubStrIndex,i),22,initHeight);//绘制截取部分
+              initHeight+=22;//20为字体的高度
               lineWidth=0;
               lastSubStrIndex=i;
           } 
           if(i==str.length-1){//绘制剩余部分
-              ctx.fillText(str.substring(lastSubStrIndex,i+1),20,initHeight);
+              ctx.fillText(str.substring(lastSubStrIndex,i+1),18,initHeight);
           }
       }
 
