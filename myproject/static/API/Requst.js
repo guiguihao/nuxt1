@@ -14,6 +14,7 @@ import RequestImg2 from './RequestImg2'
 import RequestAds from './RequestAds'
 import RequestCollection from './RequestCollection'
 import RequestReceiveInfo from './RequestReceiveInfo'
+import RequesWanNeng from './RequesWanNeng'
 
 var Request = {
 	type:RequestType,
@@ -32,6 +33,7 @@ var Request = {
 	ad:RequestAds,
 	collection:RequestCollection,
 	receiveInfo:RequestReceiveInfo,
+	wanneng:RequesWanNeng,
 };
 
 export default Request

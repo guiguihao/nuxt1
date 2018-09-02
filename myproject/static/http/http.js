@@ -8,7 +8,7 @@ import axios from 'axios'
 //import router from './router'
 
 // axios 配置
-axios.defaults.timeout = 3000;
+axios.defaults.timeout = 10000;
 // axios.defaults.baseURL = 'http://api.weiyunbuy.com';
 
 // http request 拦截器
@@ -25,7 +25,8 @@ axios.interceptors.request.use(
             // console.log(config.url); 
              config.baseURL = ''
            }else{
-             config.baseURL = 'http://api.rootopen.com'
+             // config.baseURL = 'http://api.rootopen.com'
+             config.baseURL = 'http://127.0.0.1:5000'
            };
            return config;
     },

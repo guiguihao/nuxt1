@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: 
+Disallow: /user
+Sitemap: https://www.rootopen.com/sitemap_0.xml
+Sitemap: https://www.rootopen.com/sitemap_10000.xml
+Sitemap: https://www.rootopen.com/sitemap_page_1.xml

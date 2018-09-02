@@ -1,22 +1,16 @@
 <template>
 
-  <div >
-    <global-head></global-head>
+  <div>
     <nuxt/>
-    <globar-bottom></globar-bottom>
   </div>
 </template>
 
 
 <script>
-import GlobalHead from '~/components/GlobalHead.vue'
-import GlobarBottom from '~/components/GlobarBottom.vue'
+
 import 'element-ui/lib/theme-chalk/display.css'
 export default {
-  components: {
-    GlobalHead,
-    GlobarBottom,
-  },
+ 
 }
 </script>
 
@@ -66,9 +60,4 @@ html {
   background-color: #35495e;
 }
 
-#des
-{
-  height: 200px;
-  background-color: #35495e;
-}
 </style>
